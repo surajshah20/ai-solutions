@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+    <%- include('../partials/admin-sidebar') %>
+    <main class="admin-main">
+        <div class="admin-topbar">
+            <h1>Gallery</h1>
+        </div>
+        <%- include('../partials/flash') %>
+
+        <div class="admin-form-card" style="margin-bottom:24px;">
+            <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px;"><i class="fas fa-plus"></i> Add New Image</h3>
+            <form action="/admin/gallery/add" method="POST" class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" name="image_url" placeholder="https://images.unsplash.com/..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Caption</label>
+                        <input type="text" name="caption" placeholder="e.g. AI Summit 2025 — Keynote" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add to Gallery</button>
+            </form>
+        </div>
+
+        <% if (images.length === 0) { %>
+            <div class="empty-state"><i class="fas fa-images"></i><p>No images in gallery yet. Add one above.</p></div>
+        <% } else { %>
+        <div class="admin-gallery-grid">
+            <% images.forEach(img => { %>
+            <div class="admin-gallery-card">
+                <div class="admin-gallery-img">
+                    <img src="<%= img.image_url %>" alt="<%= img.caption %>" onerror="this.src='https://placehold.co/300x200?text=Invalid+URL'">
+                </div>
+                <div class="admin-gallery-info">
+                    <p title="<%= img.caption %>"><%= img.caption %></p>
+                    <form action="/admin/gallery/<%= img.id %>/delete" method="POST" onsubmit="return confirm('Delete this image from gallery?')">
+                        <button type="submit" class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                    </form>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+        <% } %>
+    </main>
+</div>
+</body>
+</html>

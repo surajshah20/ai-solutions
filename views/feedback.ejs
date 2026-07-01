@@ -1,0 +1,85 @@
+<%- include('partials/header') %>
+
+<section class="page-hero">
+    <div class="container">
+        <h1>Customer <span class="highlight">Feedback</span></h1>
+        <p>We value every opinion — see what our clients say and share your experience</p>
+    </div>
+</section>
+
+<section class="feedback-section">
+    <div class="container">
+        <%- include('partials/flash') %>
+
+        <div class="feedback-grid">
+
+            <!-- Submit Feedback Form -->
+            <div class="feedback-form-wrapper">
+                <h2>Share Your Experience</h2>
+                <p>Worked with us? We'd love to hear your feedback.</p>
+
+                <form action="/feedback" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" placeholder="John Smith" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company <span class="required">*</span></label>
+                        <input type="text" id="company" name="company" placeholder="Your Company Ltd" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Rating <span class="required">*</span></label>
+                        <div class="star-rating">
+                            <input type="radio" name="rating" id="s5" value="5"><label for="s5" title="5 stars">★</label>
+                            <input type="radio" name="rating" id="s4" value="4"><label for="s4" title="4 stars">★</label>
+                            <input type="radio" name="rating" id="s3" value="3"><label for="s3" title="3 stars">★</label>
+                            <input type="radio" name="rating" id="s2" value="2"><label for="s2" title="2 stars">★</label>
+                            <input type="radio" name="rating" id="s1" value="1"><label for="s1" title="1 star">★</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Feedback <span class="required">*</span></label>
+                        <textarea id="message" name="message" rows="4" placeholder="Tell us about your experience with AI-Solutions..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-paper-plane"></i> Submit Feedback
+                    </button>
+                </form>
+            </div>
+
+            <!-- Existing Feedback Display -->
+            <div class="feedback-display-wrapper">
+                <h2>What Clients Say</h2>
+
+                <% if (feedbacks.length === 0) { %>
+                    <div class="no-feedback">
+                        <i class="fas fa-comments"></i>
+                        <p>No feedback yet. Be the first to share your experience!</p>
+                    </div>
+                <% } else { %>
+                    <% feedbacks.forEach(fb => { %>
+                        <div class="feedback-card">
+                            <div class="feedback-card-header">
+                                <div class="fb-avatar"><%= fb.name.charAt(0).toUpperCase() %></div>
+                                <div>
+                                    <strong><%= fb.name %></strong>
+                                    <span class="fb-company"><%= fb.company %></span>
+                                </div>
+                                <div class="fb-stars">
+                                    <% for(let i = 1; i <= 5; i++) { %>
+                                        <span class="<%= i <= fb.rating ? 'star-filled' : 'star-empty' %>">★</span>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <p class="fb-message">"<%= fb.message %>"</p>
+                            <span class="fb-date"><%= new Date(fb.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></span>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

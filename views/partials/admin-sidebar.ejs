@@ -1,0 +1,26 @@
+<aside class="admin-sidebar">
+    <div class="sidebar-logo">
+        <span class="logo-ai">AI</span><span class="logo-solutions">-Solutions</span>
+    </div>
+    <nav class="sidebar-nav">
+        <span class="sidebar-section-label">Overview</span>
+        <a href="/admin/dashboard" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+
+        <span class="sidebar-section-label">Content</span>
+        <a href="/admin/articles" class="sidebar-link"><i class="fas fa-newspaper"></i> Articles</a>
+        <a href="/admin/gallery" class="sidebar-link"><i class="fas fa-images"></i> Gallery</a>
+        <a href="/admin/events" class="sidebar-link"><i class="fas fa-calendar-alt"></i> Events</a>
+
+        <span class="sidebar-section-label">Customers</span>
+        <a href="/admin/dashboard" class="sidebar-link"><i class="fas fa-envelope"></i> Inquiries</a>
+        <a href="/admin/feedback-list" class="sidebar-link"><i class="fas fa-star"></i> Feedback</a>
+
+        <span class="sidebar-section-label">Site</span>
+        <a href="/" class="sidebar-link" target="_blank"><i class="fas fa-globe"></i> View Website</a>
+        <a href="/admin/logout" class="sidebar-link logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </nav>
+    <div class="sidebar-user">
+        <i class="fas fa-user-shield"></i>
+        <span><%= admin ? admin.username : '' %></span>
+    </div>
+</aside>

@@ -1,0 +1,70 @@
+<%- include('partials/header') %>
+
+<section class="page-hero">
+    <div class="container">
+        <h1>Events & <span class="highlight">Gallery</span></h1>
+        <p>Join us at upcoming events and explore highlights from past promotional showcases</p>
+    </div>
+</section>
+
+<section class="events-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Upcoming Events</h2>
+            <p>Register your interest and attend our live tech demonstrations</p>
+        </div>
+        <% if (events.length === 0) { %>
+            <div style="text-align:center;padding:40px;background:var(--light);border-radius:var(--radius)">
+                <p style="color:var(--grey)">No upcoming events at the moment. Check back soon!</p>
+            </div>
+        <% } else { %>
+        <div class="events-grid">
+            <% events.forEach(event => { %>
+            <div class="event-card <%= event.is_featured ? 'featured' : '' %>">
+                <div class="event-date">
+                    <span class="day"><%= new Date(event.event_date).getUTCDate() %></span>
+                    <span class="month"><%= new Date(event.event_date).toLocaleString('en-GB', { month: 'short', timeZone: 'UTC' }) %></span>
+                    <span class="year"><%= new Date(event.event_date).getUTCFullYear() %></span>
+                </div>
+                <div class="event-info">
+                    <% if (event.is_featured) { %><span class="event-badge">Featured</span><% } %>
+                    <h3><%= event.title %></h3>
+                    <p><%= event.description %></p>
+                    <div class="event-meta">
+                        <span><i class="fas fa-<%= event.event_type === 'online' ? 'video' : 'map-marker-alt' %>"></i> <%= event.location %></span>
+                    </div>
+                    <a href="/contact" class="btn <%= event.is_featured ? 'btn-primary' : 'btn-outline' %> btn-sm" style="margin-top:12px">Register Interest</a>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+        <% } %>
+    </div>
+</section>
+
+<section class="gallery-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Photo Gallery</h2>
+            <p>Highlights from our past events and product showcases</p>
+        </div>
+        <% if (gallery.length === 0) { %>
+            <div style="text-align:center;padding:40px;background:var(--light);border-radius:var(--radius)">
+                <p style="color:var(--grey)">No gallery images yet.</p>
+            </div>
+        <% } else { %>
+        <div class="gallery-grid">
+            <% gallery.forEach((img, i) => { %>
+            <div class="gallery-item <%= i === 0 ? 'large' : '' %>">
+                <div class="gallery-img-wrapper">
+                    <img src="<%= img.image_url %>" alt="<%= img.caption %>">
+                    <div class="gallery-caption"><%= img.caption %></div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+    <%- include('../partials/admin-sidebar') %>
+    <main class="admin-main">
+        <div class="admin-topbar">
+            <h1>Events</h1>
+            <a href="/admin/events/add" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add Event</a>
+        </div>
+        <%- include('../partials/flash') %>
+        <div class="admin-table-wrapper">
+            <% if (events.length === 0) { %>
+                <div class="empty-state"><i class="fas fa-calendar"></i><p>No events yet. <a href="/admin/events/add">Add one</a>.</p></div>
+            <% } else { %>
+            <div class="table-scroll">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                            <th>Featured</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% events.forEach((event, i) => { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><strong><%= event.title %></strong></td>
+                            <td><%= new Date(event.event_date).toLocaleDateString('en-GB', { timeZone: 'UTC' }) %></td>
+                            <td><%= event.location %></td>
+                            <td>
+                                <span class="badge <%= event.event_type === 'online' ? 'badge-new' : 'badge-read' %>">
+                                    <%= event.event_type %>
+                                </span>
+                            </td>
+                            <td>
+                                <% if (event.is_featured) { %>
+                                    <span class="badge badge-new">Yes</span>
+                                <% } else { %>
+                                    <span class="badge badge-read">No</span>
+                                <% } %>
+                            </td>
+                            <td class="action-btns">
+                                <a href="/admin/events/<%= event.id %>/edit" class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></a>
+                                <form action="/admin/events/<%= event.id %>/delete" method="POST" style="display:inline" onsubmit="return confirm('Delete this event?')">
+                                    <button type="submit" class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <% } %>
+        </div>
+    </main>
+</div>
+</body>
+</html>

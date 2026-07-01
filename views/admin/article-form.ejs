@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+    <%- include('../partials/admin-sidebar') %>
+    <main class="admin-main">
+        <div class="admin-topbar">
+            <div>
+                <a href="/admin/articles" class="back-link"><i class="fas fa-arrow-left"></i> Back to Articles</a>
+                <h1><%= article ? 'Edit Article' : 'Add New Article' %></h1>
+            </div>
+        </div>
+        <%- include('../partials/flash') %>
+        <div class="admin-form-card">
+            <form action="<%= action %>" method="POST" class="contact-form">
+                <div class="form-group full-width">
+                    <label>Title</label>
+                    <input type="text" name="title" value="<%= article ? article.title : '' %>" placeholder="Article title" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="category" required>
+                            <option value="">Select category...</option>
+                            <% ['AI Innovation','Prototyping','Digital Transformation','Security','Case Study','Trends','Company News'].forEach(cat => { %>
+                                <option value="<%= cat %>" <%= article && article.category === cat ? 'selected' : '' %>><%= cat %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Author</label>
+                        <input type="text" name="author" value="<%= article ? article.author : '' %>" placeholder="Author name" required>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>Content</label>
+                    <textarea name="content" rows="10" placeholder="Write the full article content here..." required><%= article ? article.content : '' %></textarea>
+                </div>
+                <div class="form-group">
+                    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:500;">
+                        <input type="checkbox" name="is_featured" <%= article && article.is_featured ? 'checked' : '' %> style="width:auto;height:auto;">
+                        Mark as Featured Article (shows at the top of the Articles page)
+                    </label>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> <%= article ? 'Update Article' : 'Publish Article' %>
+                    </button>
+                    <a href="/admin/articles" class="btn btn-outline">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

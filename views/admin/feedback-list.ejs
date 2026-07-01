@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+    <%- include('../partials/admin-sidebar') %>
+    <main class="admin-main">
+        <div class="admin-topbar">
+            <h1>Customer Feedback</h1>
+        </div>
+        <%- include('../partials/flash') %>
+        <div class="admin-table-wrapper">
+            <% if (feedbacks.length === 0) { %>
+                <div class="empty-state"><i class="fas fa-star"></i><p>No feedback submitted yet.</p></div>
+            <% } else { %>
+            <div class="table-scroll">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Rating</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% feedbacks.forEach((fb, i) => { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><strong><%= fb.name %></strong></td>
+                            <td><%= fb.company %></td>
+                            <td>
+                                <% for(let s = 1; s <= 5; s++) { %>
+                                    <span style="color:<%= s <= fb.rating ? '#f59e0b' : '#d1d5db' %>">★</span>
+                                <% } %>
+                            </td>
+                            <td><%= fb.message.substring(0, 60) %>...</td>
+                            <td><%= new Date(fb.created_at).toLocaleDateString() %></td>
+                            <td>
+                                <form action="/admin/feedback/<%= fb.id %>/delete" method="POST" onsubmit="return confirm('Delete this feedback?')">
+                                    <button type="submit" class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <% } %>
+        </div>
+    </main>
+</div>
+</body>
+</html>

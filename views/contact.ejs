@@ -1,0 +1,129 @@
+<%- include('partials/header') %>
+
+<section class="page-hero">
+    <div class="container">
+        <h1>Contact <span class="highlight">Us</span></h1>
+        <p>Tell us about your requirements and we'll get back to you within 24 hours</p>
+    </div>
+</section>
+
+<section class="contact-section">
+    <div class="container">
+        <%- include('partials/flash') %>
+
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+                <h2>Send Us Your Requirements</h2>
+                <p>Fill in the form below and one of our team members will be in touch shortly.</p>
+
+                <form action="/contact" method="POST" class="contact-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" placeholder="John Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="+44 191 000 0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company_name">Company Name <span class="required">*</span></label>
+                            <input type="text" id="company_name" name="company_name" placeholder="Your Company Ltd" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">Country <span class="required">*</span></label>
+                            <select id="country" name="country" required>
+                                <option value="">Select your country...</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States">United States</option>
+                                <option value="Germany">Germany</option>
+                                <option value="France">France</option>
+                                <option value="India">India</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Nepal">Nepal</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="job_title">Job Title <span class="required">*</span></label>
+                            <input type="text" id="job_title" name="job_title" placeholder="e.g. CTO, IT Manager" required>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="job_details">Job Requirements / Message <span class="required">*</span></label>
+                        <textarea id="job_details" name="job_details" rows="5" placeholder="Please describe your requirements, the type of solution you're looking for, or any questions you have..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-paper-plane"></i> Submit Inquiry
+                    </button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info-wrapper">
+                <h2>Get In Touch</h2>
+                <div class="contact-info-cards">
+                    <div class="info-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Our Location</h4>
+                            <p>Sunderland, United Kingdom</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p>info@ai-solutions.co.uk</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p>+44 191 000 0000</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Business Hours</h4>
+                            <p>Mon – Fri: 9:00 AM – 5:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chatbot-box">
+                    <div class="chatbot-header">
+                        <i class="fas fa-robot"></i>
+                        <span>AI Assistant — Ask Me Anything</span>
+                        <span class="online-dot"></span>
+                    </div>
+                    <div class="chatbot-messages" id="chatMessages">
+                        <div class="chat-msg bot">
+                            <p>👋 Hello! I'm the AI-Solutions virtual assistant. How can I help you today?</p>
+                        </div>
+                    </div>
+                    <div class="chatbot-input">
+                        <input type="text" id="chatInput" placeholder="Type your question..." />
+                        <button onclick="sendChat()" id="chatSendBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>
