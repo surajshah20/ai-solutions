@@ -103,7 +103,6 @@ ai-solutions/
 └── createAdmin.js         # One-time admin account setup script
 
 ---
-
 ## Database Schema
 
 Six tables in PostgreSQL:
